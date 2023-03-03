@@ -31,6 +31,7 @@ while c<len(datas):
     c += counter
     
 # ! Escreve o Output da alinea (a) no ficheiro output1.csv ! #
+
 f = open("output1.csv", "w")
 f.write("Ano : Counter\n")
 for (i,j) in freq_proc.items():
@@ -46,6 +47,17 @@ for line in open("processos.txt"):
     if line.strip():
         nomes_proprios = line.strip().split("::")[2:]
         for nome in nomes_proprios:
+            
+            while len(nome) > 0 and nome[0] == " ":
+                nome = nome[1:]
+            if (nome == ""): continue
+            if (nome.isnumeric()): continue
+            if (nome == "Proc"): continue
+            if (nome.startswith("Em Anexo:")): continue
+            if (nome == "Doc"): continue
+            if (nome == "danificado"): continue
+            if (any(char.isdigit() for char in nome)): continue
+            
             nome_split = nome.split(" ")
             if len(nome_split) > 1:
                 freq_n_p[nome_split[0]] = freq_n_p.get(nome_split[0], 0) + 1
@@ -53,7 +65,7 @@ for line in open("processos.txt"):
                     freq_a[nome_split[-1]] = freq_a.get(nome_split[-1], 0) + 1
 
 
-# ! Escreve o Output da alinea (b) no ficheiro output2.csv ! #
+# ! Escreve o Output da alinea (b) nos ficheiros output2*.csv ! #
 f = open("output2Proprios.csv", "w")
 f.write("Nome Proprio : Counter\n")
 for (i,j) in freq_n_p.items():
@@ -69,12 +81,43 @@ f.close()
 print("|Output da segunda tarefa escrito nos ficheiros output2Proprios.csv e output2Apelidos.csv|")
 
 # ? (c) Frequencia das relações ? #
+
+freq_rel = {}
+
+for x in valid_lines:
+    x = str(x).split(".")
+    for info in x:
+        while len(info) > 0 and info[0] == " ":
+            info = info[1:]
+        if (info == ""): continue
+        if (info.isnumeric()): continue
+        if (info == "Proc"): continue
+        if (info.startswith("Em Anexo:")): continue
+        if (info == "Doc"): continue
+        if (info == "danificado"): continue
+        if (any(char.isdigit() for char in info)): continue
+
+        nome_e_relacao = info.split(",",2)
+
+        if len(nome_e_relacao) > 1 and not(nome_e_relacao[1].startswith(" ")) and len(nome_e_relacao[1]) < 26:
+                freq_rel[nome_e_relacao[1]] = freq_rel.get(nome_e_relacao[1], 0) + 1      
+        
+# ! Escreve o Output da alinea (c) no ficheiro output3.csv ! #
+
+f = open("output3.csv", "w")
+f.write("Relacao : Counter\n")
+for (i,j) in freq_rel.items():
+    f.write(f"{i} : {j}\n")
+f.close()
+
+print("|Output da terceira tarefa escrito no ficheiro output3.csv|")
+
 # ? (d) Escrever as primeiras 20 entradas em json ? #
 import json
 
 dict1 = {}
 
-fields =['processo', 'data', 'nomes']
+fields =['processo', 'data', 'nome']
 
 with open("processos.txt") as fh:
     l = 1
@@ -101,4 +144,5 @@ out_file = open("process.json", "w")
 json.dump(dict1, out_file, indent = 4)
 out_file.close()
 
-print("|Foi criado o ficheiro process.json|")
+print("|Foi criado o ficheiro process.json relativo à quarta tarefa|")
+print("|Programa Terminou|")

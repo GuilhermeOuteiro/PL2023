@@ -29,35 +29,7 @@ def transf_para_saldo(dinheiro):
     saldo = dict()
 
     while dinheiro > 0:
-        if dinheiro >= 500:
-            depositar_dinheiro("500e",saldo)
-            dinheiro -= 500
-
-        elif dinheiro >= 200:
-            depositar_dinheiro("200e",saldo)
-            dinheiro -= 200   
-
-        elif dinheiro >= 100:
-            depositar_dinheiro("100e",saldo)
-            dinheiro -= 100
-
-        elif dinheiro >= 50:
-            depositar_dinheiro("50e",saldo)
-            dinheiro -= 50
-
-        elif dinheiro >= 20:
-            depositar_dinheiro("20e",saldo)
-            dinheiro -= 20
-
-        elif dinheiro >= 10:
-            depositar_dinheiro("10e",saldo)
-            dinheiro -= 10
-
-        elif dinheiro >= 5:
-            depositar_dinheiro("5e",saldo)
-            dinheiro -= 5
-
-        elif dinheiro >= 2:
+        if dinheiro >= 2:
             depositar_dinheiro("2e",saldo)
             dinheiro -= 2
 
@@ -98,7 +70,7 @@ def transf_para_saldo(dinheiro):
     else: return res[:-2]
 
 def validar_dinheiro(money):
-    return int(re.search(r"\d+", money).group()) in [1,2,5,10,20,50,100,200,500]
+    return int(re.search(r"\d+", money).group()) in [1,2,5,10,20,50]
 
 def print_saldo(saldo):  
     e = int(saldo)

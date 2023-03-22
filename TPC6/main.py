@@ -19,7 +19,7 @@ tokens = (
     'RETCLOSE',
     'VIRGULA',
     'PONTOVIRG',
-    'IGUAL',
+    'ATRIB',
     'EQUALS',
     'MENOR',
     'MAIOR',
@@ -40,7 +40,7 @@ t_RETOPEN = r'\['
 t_RETCLOSE = r'\]'
 t_VIRGULA = r'\,'
 t_PONTOVIRG = r'\;'
-t_IGUAL = r'\='
+t_ATRIB = r'\='
 t_EQUALS = r'\={2}'
 t_MENOR = r'\<'
 t_MAIOR = r'\>'

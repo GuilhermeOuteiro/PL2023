@@ -51,7 +51,7 @@ def t_CICLO(t):
     return t
 
 def t_FUNCAO(t):
-    r'[a-z][a-zA-Z0-9_]*\(|[a-z][a-zA-Z0-9_]*\{'
+    r'[a-z][a-zA-Z0-9_]*(?=\()|[a-z][a-zA-Z0-9_]*(?=\{)'
     return t
 
 def t_TIPO(t):
